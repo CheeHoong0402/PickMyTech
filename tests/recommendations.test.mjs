@@ -1,0 +1,8 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {products,recommend} from '../dist/catalog.mjs';
+test('every recommendation respects budget and device category',()=>{for(const type of ['phone','laptop'])for(const budget of [100,700,1000,1500,2500,3500,5000,10000])for(const purpose of ['study','everyday','work','gaming','creative','coding']){const result=recommend({type,budget,purpose});assert.ok(result.every(p=>p.price<=budget&&p.type===type));}});
+test('strict spec filters exclude unknown specifications and wrong OS',()=>{const result=recommend({type:'phone',budget:5000,purpose:'everyday',ram:8,storage:256,os:'Android'});assert.ok(result.length);assert.ok(result.every(p=>p.ram>=8&&p.storage>=256&&p.os==='Android'));assert.ok(!result.some(p=>p.id==='redmi14'));});
+test('brand preference cannot override budget and unsuitable gaming hardware is excluded',()=>{assert.equal(recommend({type:'phone',budget:1000,brand:'Apple',purpose:'study'}).some(p=>p.brand==='Apple'),false);assert.equal(recommend({type:'laptop',budget:3500,purpose:'gaming'}).length,0);assert.ok(recommend({type:'laptop',budget:4500,purpose:'gaming'}).every(p=>p.fit.gaming>=75));});
+test('invalid and impossible budgets return an honest empty result',()=>{for(const budget of [0,-1,NaN,Infinity,'bad',100])assert.equal(recommend({type:'laptop',budget}).length,0);});
+test('catalogue entries have local source links and unique identifiers',()=>{assert.equal(new Set(products.map(p=>p.id)).size,products.length);for(const p of products){assert.ok(p.price>0);assert.match(p.source,/^https:\/\//);assert.match(p.url,/^https:\/\//);assert.equal(p.pros.length,p.prosMs.length);}});

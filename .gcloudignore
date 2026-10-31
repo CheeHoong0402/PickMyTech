@@ -1,0 +1,13 @@
+.git/
+.openai/
+node_modules/
+preview.png
+*-proof.png
+*.tar.gz
+*.zip
+.env
+.env.*
+scripts/
+tests/
+asset-sources.json
+selected-asset-sources.json

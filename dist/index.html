@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#244d3d"><meta name="description" content="Find a laptop or smartphone that fits your life and budget. Malaysian listings, prices in RM, and simple comparisons.">
+<title>PickMyTech — Your next gadget, made simple.</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"><script type="module" src="app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#chooser">Skip to gadget chooser</a>
+<header class="header"><div class="header-inner">
+ <a class="logo" href="./" aria-label="PickMyTech home"><span class="logo-mark"><i></i><i></i><i></i><i></i></span>PickMyTech</a>
+ <nav aria-label="Main navigation"><button id="find-nav" class="nav-link active" data-i18n="findNav">Find a gadget</button><button id="saved-nav" class="nav-link"><span data-i18n="saved">Saved</span><span id="saved-count" class="count">0</span></button><button id="how-nav" class="nav-link" data-i18n="how">How it works</button></nav>
+ <div class="header-tools"><button id="text-size" class="text-size" aria-label="Use larger text" aria-pressed="false">A<span>A</span></button><span class="tool-divider"></span><button class="language selected" id="en" aria-pressed="true">EN</button><button class="language" id="ms" aria-pressed="false">BM</button></div>
+</div></header>
+<main class="page">
+ <section class="intro"><div><div class="eyebrow"><span class="tiny-line"></span><span data-i18n="eyebrow">LESS SEARCHING. BETTER CHOOSING.</span></div><h1 data-i18n-html="headline">Your next gadget.<br><span>Made simple.</span></h1><p data-i18n="intro">Your budget. Your needs. A choice that feels right.</p></div><div class="local-note"><span class="local-icon" data-icon="globe"></span><div><strong data-i18n="localTitle">Picked for Malaysia</strong><span data-i18n="localSub">Local listings. Prices in RM.</span></div><span class="small-spark" data-icon="sparkles"></span></div></section>
+ <section id="chooser" class="workspace" aria-label="Gadget chooser">
+  <aside class="filters"><form id="preference-form"><div class="filter-heading"><h2 data-i18n="yourNeeds">Let’s find your fit</h2><button type="button" id="reset" class="link-button" data-i18n="reset">Reset</button></div>
+   <fieldset><legend><span class="step">01</span><span data-i18n="looking">I’m looking for a</span></legend><div class="device-options"><label class="device-option"><input type="radio" name="type" value="laptop" checked><span><i data-icon="laptop"></i><span data-i18n="laptop">Laptop</span><i class="radio-dot"></i></span></label><label class="device-option"><input type="radio" name="type" value="phone"><span><i data-icon="phone"></i><span data-i18n="phone">Smartphone</span><i class="radio-dot"></i></span></label></div></fieldset>
+   <fieldset><legend><span class="step">02</span><label for="budget" data-i18n="budget">My maximum budget</label></legend><div class="budget-field"><span>RM</span><input type="number" id="budget" name="budget" min="100" max="30000" step="1" value="3500" required inputmode="numeric" aria-describedby="budget-error"></div><p id="budget-error" class="error" hidden></p><input type="range" id="budget-range" min="500" max="10000" step="50" value="3500" aria-label="Budget in Malaysian Ringgit"><div class="range-labels"><span>RM 500</span><span>RM 10,000</span></div></fieldset>
+   <fieldset><legend><span class="step">03</span><span data-i18n="purpose">Mostly, I’ll use it for</span></legend><div class="purpose-options" id="purpose-options"></div></fieldset>
+   <details id="optional"><summary><span><i data-icon="sliders"></i><span data-i18n="preferences">A little more specific?</span></span><i data-icon="plus"></i></summary><div class="optional-fields"><label for="brand" data-i18n="brand">Preferred brand</label><select name="brand" id="brand"></select><label for="ram" data-i18n="ram">Minimum memory (RAM)</label><select name="ram" id="ram"><option value="0" data-i18n="noPreference">No preference</option><option value="8">8 GB</option><option value="16">16 GB</option><option value="24">24 GB</option><option value="32">32 GB</option></select><label for="storage" data-i18n="storage">Minimum storage</label><select name="storage" id="storage"><option value="0" data-i18n="noPreference">No preference</option><option value="128">128 GB</option><option value="256">256 GB</option><option value="512">512 GB</option><option value="1024">1 TB</option></select><label for="os" data-i18n="os">Operating system</label><select name="os" id="os"></select><p class="small muted" data-i18n="unknownSpecs">A spec filter excludes listings where that spec is unconfirmed.</p></div></details>
+   <button class="primary find-button" type="submit"><span data-i18n="findButton">Find my gadget</span><i data-icon="arrow-right"></i></button>
+   <p class="private-note"><i data-icon="lock"></i><span data-i18n="private">No sign-up. Just good choices.</span></p>
+  </form></aside>
+  <section class="results" aria-labelledby="results-title"><div class="results-heading"><div><div class="section-kicker" data-i18n="shortlist">YOUR SHORTLIST</div><h2 id="results-title" tabindex="-1" data-i18n="resultsTitle">Good fits for you<span class="green-dot"></span></h2></div><div class="sort-wrap"><label class="sr-only" for="sort" data-i18n="sort">Sort recommendations</label><i data-icon="sort"></i><select id="sort"><option value="recommended" data-i18n="recommended">Best fit</option><option value="price" data-i18n="lowest">Lowest price</option></select></div></div>
+   <div class="result-context"><span id="result-summary"></span><span class="within-budget"><i data-icon="check-circle"></i><span data-i18n="within">Within your budget</span></span></div>
+   <div id="cards" class="cards"></div><div id="results-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+   <div class="results-bottom"><button id="show-all" class="link-button"></button><span class="small muted" id="catalog-count"></span></div>
+   <div class="reassurance"><span class="reassurance-icon" data-icon="leaf"></span><div><h3 data-i18n="lessTitle">More expensive doesn’t always mean more you.</h3><p data-i18n="lessText">We put your needs first. Your budget stays yours.</p></div></div>
+   <p class="price-note"><i data-icon="info"></i><span data-i18n="priceNote">Listed prices checked 31 Oct 2026. Prices and stock can change. Confirm the configuration and final total with the retailer.</span></p>
+  </section>
+ </section>
+ <footer><a class="footer-brand" href="./">PickMyTech</a><span data-i18n="footer">A little clarity for your next big choice.</span><span class="footer-country"><span class="country-dot"></span>Malaysia <span>·</span> MYR</span></footer>
+</main>
+<div id="compare-bar" class="compare-bar" hidden><span id="compare-count"></span><button id="clear-compare" class="link-button" data-i18n="clear">Clear</button><button id="compare-button" class="primary" data-i18n="compareNow">Compare choices</button></div>
+<dialog id="dialog"><div class="dialog-header"><h2 id="dialog-title"></h2><button id="close-dialog" class="icon-button" aria-label="Close dialog"><i data-icon="close"></i></button></div><div id="dialog-body"></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body></html>
